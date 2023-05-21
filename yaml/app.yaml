@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  labels:
+    app: demo
+    app: run
+spec:
+  containers:
+  - name: app
+    image: gcr.io/kbot-385713/demo:v1.0.0
+    ports:
+    - name: http
+      containerPort: 8000
