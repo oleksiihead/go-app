@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+spec:
+  containers:
+  - name: app
+    image: gcr.io/kbot-385713/demo:v1.0.0
+    ports:
+    - containerPort: 8000
+      name: http
+    livenessProbe:
+      failureThreshold: 3
+      initialDelaySeconds: 0
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 1
+      port: 8000
+      path: /ready
+    readinessProbe:
+      failureThreshold: 3
+      initialDelaySeconds: 0
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 1
+      port: 8000
+      path: /ready
+    volumeMounts:
+    - name: app-data
+      mountPath: /var/lib/app
+  volumes:
+  - name: app-data
+    hostPath:
+      path: /var/lib/app

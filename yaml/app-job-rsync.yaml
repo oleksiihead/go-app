@@ -1,0 +1,22 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: copy-files-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: copy-files
+        image: gcr.io/google-samples/gsutil:latest
+        command: ["gsutil", "rsync", "-r", "gs://my-bucket/data/input", "/data/input"]
+        volumeMounts:
+        - name: data-input
+          mountPath: /data/input
+      restartPolicy: Never
+      backoffLimit: 0
+      volumes:
+      - name: data-input
+        gcePersistentDisk:
+          fsType: ext4
+          pdName: my-disk
