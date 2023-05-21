@@ -42,5 +42,3 @@ docker push <dockerhub_username>/go-demo-app:v1.0.0
 k3d cluster create demo
 kubectl create deploy demo --image <dockerhub_username>/go-demo-app:v1.0.0
 ```
-
-### 
